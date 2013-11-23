@@ -15,9 +15,8 @@ public class Application {
 
     public static void main(String[] args) throws IOException {
         //numberTest()
-        CurrencySet currencySet = CurrencySetLoader.load();
+        CurrencySet currencySet = loadCurrencySet();
         ExchangeMoneyControl moneyControl = new ExchangeMoneyControl(createMoneyCalculatorDialog());
-
         while (true) {
             moneyControl.execute();
         }
@@ -27,6 +26,10 @@ public class Application {
     private static MoneyCalculatorDialogInterface createMoneyCalculatorDialog() {
 //        return new ConsoleMoneyCalculatorDialog(new BufferedReader(new InputStreamReader(System.in)));
         return new SwingMoneyCalculatorDialog();
+    }
+
+    private static CurrencySet loadCurrencySet() {
+        return CurrencySetLoader.load();
     }
 
     private static void numberTest() {

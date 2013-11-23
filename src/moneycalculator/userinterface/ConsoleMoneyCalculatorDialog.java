@@ -36,8 +36,8 @@ public class ConsoleMoneyCalculatorDialog implements MoneyCalculatorDialogInterf
         this.currency = currencyDialog.getCurrency();
     }
 
-    @Override
-    public void show() {
-        System.out.println("Not supported yet.");
-    }
+//    @Override
+//    public void show() {
+//        System.out.println("Not supported yet.");
+//    }
 }

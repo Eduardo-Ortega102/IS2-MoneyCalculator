@@ -1,14 +1,10 @@
 package moneycalculator.userinterface;
 
-import java.awt.FlowLayout;
-import java.awt.HeadlessException;
-import java.awt.Toolkit;
+import java.awt.*;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
-import javax.swing.JOptionPane;
 import moneycalculator.model.Currency;
 import moneycalculator.model.Money;
 import moneycalculator.userinterface.swing.SwingCurrencyDialog;
@@ -22,22 +18,21 @@ public class SwingMoneyCalculatorDialog extends JFrame implements MoneyCalculato
     private SwingCurrencyDialog currency1;
     private SwingCurrencyDialog currency2;
     private boolean execute;
+    private JTextArea resultArea;
 
     public SwingMoneyCalculatorDialog() throws HeadlessException {
+        int width = 550;
+        int height = 500;
         this.setTitle("MoneyCalculator");
+        this.setSize(width, height);
         Toolkit tk = Toolkit.getDefaultToolkit();
         this.setLocation(
-                (int) ((tk.getScreenSize().getWidth() - 500) / 2),
-                (int) ((tk.getScreenSize().getHeight() - 500) / 2));
+                (int) ((tk.getScreenSize().getWidth() - width) / 2),
+                (int) ((tk.getScreenSize().getHeight() - height) / 2));
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setLayout(new FlowLayout(FlowLayout.LEFT));
-        amount = SwingAmountMoneyDialog.getInstance();
-        currency1 = SwingCurrencyDialog.getInstance1();
-        currency2 = SwingCurrencyDialog.getInstance2();
-        this.add(amount);
-        this.add(currency1);
-        this.add(currency2);
-        this.add(createButton());
+        this.setLayout(new GridLayout(2, 1));
+        this.add(createInputPanel(), 0);
+        this.add(createOutputPanel(), 1);
         this.pack();
     }
 
@@ -50,12 +45,11 @@ public class SwingMoneyCalculatorDialog extends JFrame implements MoneyCalculato
         }
     }
 
-    @Override
-    public void show() {
-        JFrame frame = new JFrame();
-        JOptionPane.showMessageDialog(frame, "Not suported yet.");
-    }
-
+//    @Override
+//    public void show() {
+//        JFrame frame = new JFrame();
+//        JOptionPane.showMessageDialog(frame, "Not suported yet.");
+//    }
     @Override
     public Currency getCurrency() {
         return currency;
@@ -66,15 +60,20 @@ public class SwingMoneyCalculatorDialog extends JFrame implements MoneyCalculato
         return money;
     }
 
-    private JButton createButton() {
+    private JPanel createButtonPanel() {
+        JPanel pane = new JPanel();
+        pane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        pane.setBackground(Color.BLUE);
         JButton button = new JButton("Change");
+        button.setBounds(new Rectangle(30, 20));
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 execute = false;
             }
         });
-        return button;
+        pane.add(button);
+        return pane;
     }
 
     private void inicialiceAttributes() {
@@ -83,5 +82,33 @@ public class SwingMoneyCalculatorDialog extends JFrame implements MoneyCalculato
             money = new Money(amount.getAmount(), currency1.getCurrency());
             currency = currency2.getCurrency();
         }
+    }
+
+    private JPanel createInputPanel() {
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.red);
+        panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        amount = SwingAmountMoneyDialog.getInstance();
+        currency1 = SwingCurrencyDialog.getInstance1();
+        currency2 = SwingCurrencyDialog.getInstance2();
+        panel.add(amount);
+        panel.add(currency1);
+        panel.add(currency2);
+        return panel;
+    }
+
+    private JPanel createOutputPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(2, 1));
+        JPanel pane = new JPanel();
+        pane.setBackground(Color.GREEN);
+        pane.setLayout(new FlowLayout(FlowLayout.LEFT));
+        pane.add(new Label("Result: "));
+        resultArea = new JTextArea();
+        pane.add(resultArea);
+        resultArea.setText("LOOOOOOOOOOOOOOOOOOOOOL");
+        panel.add(pane, 0);
+        panel.add(createButtonPanel(), 1);
+        return panel;
     }
 }
