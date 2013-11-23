@@ -4,32 +4,57 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import moneycalculator.control.ExchangeMoneyControl;
+import moneycalculator.model.Currency;
 import moneycalculator.model.CurrencySet;
 import moneycalculator.model.Number;
 import moneycalculator.persistence.CurrencySetLoader;
-import moneycalculator.userinterface.ConsoleMoneyCalculatorDialog;
-import moneycalculator.userinterface.MoneyCalculatorDialogInterface;
-import moneycalculator.userinterface.SwingMoneyCalculatorDialog;
+import moneycalculator.persistence.DataBaseCurrencySetLoader;
+import moneycalculator.persistence.ExchangeRateLoader;
+import moneycalculator.userinterface.ConsoleMoneyCalculator;
+import moneycalculator.userinterface.DialogInterface;
+import moneycalculator.userinterface.SwingMoneyCalculator;
 
 public class Application {
 
     public static void main(String[] args) throws IOException {
         //numberTest()
-        CurrencySet currencySet = loadCurrencySet();
-        ExchangeMoneyControl moneyControl = new ExchangeMoneyControl(createMoneyCalculatorDialog());
+        CurrencySetLoader currencySetLoader = createCurrencySetLoader();
+        currencySetLoader.load();
+        ExchangeMoneyControl moneyControl = new ExchangeMoneyControl(createDialog(), createExchangeRateLoader());
         while (true) {
             moneyControl.execute();
         }
 
     }
 
-    private static MoneyCalculatorDialogInterface createMoneyCalculatorDialog() {
-//        return new ConsoleMoneyCalculatorDialog(new BufferedReader(new InputStreamReader(System.in)));
-        return new SwingMoneyCalculatorDialog();
+    private static ExchangeRateLoader createExchangeRateLoader() {
+        return new ExchangeRateLoader();
     }
 
-    private static CurrencySet loadCurrencySet() {
-        return CurrencySetLoader.load();
+    private static DialogInterface createDialog() {
+//        return new ConsoleMoneyCalculator(new BufferedReader(new InputStreamReader(System.in)));
+        return new SwingMoneyCalculator();
+    }
+
+    private static CurrencySetLoader createCurrencySetLoader() {
+        return new CurrencySetLoader() {
+            @Override
+            public void load() {
+                CurrencySet set = CurrencySet.getInstance();
+                set.add(new Currency("EUR", "Euro", "€"));
+                set.add(new Currency("GBP", "Libra esterlina", "£"));
+                set.add(new Currency("USD", "Dolar americano", "$"));
+                set.add(new Currency("CAD", "Dolar canadiense", "C$"));
+                set.add(new Currency("HKD", "Dolar de Hong Kong", "HK$"));
+                set.add(new Currency("GNF", "Franco guineano", "FG"));
+                set.add(new Currency("JPY", "Yen", "¥"));
+                set.add(new Currency("KES", "Chelín keniano", "KSh"));
+                set.add(new Currency("ISK", "Corona islandesa", "kri"));
+                set.add(new Currency("HNL", "Lempira", "L"));
+                set.add(new Currency("EGP", "Libra egipcia", "LE"));
+                set.add(new Currency("DKK", "Corona danesa", "krd"));
+            }
+        };
     }
 
     private static void numberTest() {

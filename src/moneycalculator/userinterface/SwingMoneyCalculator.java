@@ -10,7 +10,7 @@ import moneycalculator.model.Money;
 import moneycalculator.userinterface.swing.SwingCurrencyDialog;
 import moneycalculator.userinterface.swing.SwingAmountMoneyDialog;
 
-public class SwingMoneyCalculatorDialog extends JFrame implements MoneyCalculatorDialogInterface {
+public class SwingMoneyCalculator extends JFrame implements DialogInterface {
 
     private Currency currency;
     private Money money;
@@ -20,7 +20,7 @@ public class SwingMoneyCalculatorDialog extends JFrame implements MoneyCalculato
     private boolean execute;
     private JTextArea resultArea;
 
-    public SwingMoneyCalculatorDialog() throws HeadlessException {
+    public SwingMoneyCalculator() throws HeadlessException {
         int width = 550;
         int height = 500;
         this.setTitle("MoneyCalculator");

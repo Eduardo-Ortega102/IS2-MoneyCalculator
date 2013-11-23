@@ -6,13 +6,13 @@ import moneycalculator.model.Money;
 import moneycalculator.userinterface.console.ConsoleCurrencyDialog;
 import moneycalculator.userinterface.console.ConsoleMoneyDialog;
 
-public class ConsoleMoneyCalculatorDialog implements MoneyCalculatorDialogInterface {
+public class ConsoleMoneyCalculator implements DialogInterface {
 
     private BufferedReader reader;
     private Currency currency;
     private Money money;
 
-    public ConsoleMoneyCalculatorDialog(BufferedReader reader) {
+    public ConsoleMoneyCalculator(BufferedReader reader) {
         this.reader = reader;
     }
 

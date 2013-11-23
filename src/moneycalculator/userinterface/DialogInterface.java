@@ -3,7 +3,7 @@ package moneycalculator.userinterface;
 import moneycalculator.model.Currency;
 import moneycalculator.model.Money;
 
-public interface MoneyCalculatorDialogInterface {
+public interface DialogInterface {
 
     public void execute();
     

@@ -4,16 +4,18 @@ import moneycalculator.model.Currency;
 import moneycalculator.model.Money;
 import moneycalculator.model.Number;
 import moneycalculator.persistence.ExchangeRateLoader;
-import moneycalculator.userinterface.MoneyCalculatorDialogInterface;
+import moneycalculator.userinterface.DialogInterface;
 
 public class ExchangeMoneyControl {
 
     private Currency toCurrency;
     private Money money;
-    private MoneyCalculatorDialogInterface moneyDialog;
+    private DialogInterface moneyDialog;
+    private ExchangeRateLoader loader;
 
-    public ExchangeMoneyControl(MoneyCalculatorDialogInterface moneyDialog) {
+    public ExchangeMoneyControl(DialogInterface moneyDialog, ExchangeRateLoader loader) {
         this.moneyDialog = moneyDialog;
+        this.loader = loader;
     }
 
     public void execute() {
@@ -21,6 +23,5 @@ public class ExchangeMoneyControl {
         money = moneyDialog.getMoney();
         toCurrency = moneyDialog.getCurrency();
         moneyDialog.viewResult(new Money(new Number(20),toCurrency));
-//        ExchangeRateLoader loader = new ExchangeRateLoader();
     }
 }
