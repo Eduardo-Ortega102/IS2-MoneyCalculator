@@ -7,7 +7,7 @@ public interface MoneyCalculatorDialogInterface {
 
     public void execute();
     
-    //public void show();
+    public void viewResult(Money moneyResult);
 
     public Currency getCurrency();
 

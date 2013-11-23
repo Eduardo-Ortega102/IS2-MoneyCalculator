@@ -45,11 +45,11 @@ public class SwingMoneyCalculatorDialog extends JFrame implements MoneyCalculato
         }
     }
 
-//    @Override
-//    public void show() {
-//        JFrame frame = new JFrame();
-//        JOptionPane.showMessageDialog(frame, "Not suported yet.");
-//    }
+    @Override
+    public void viewResult(Money moneyResult) {
+        resultArea.setText(money.toString() + " son " + moneyResult.toString());
+    }
+
     @Override
     public Currency getCurrency() {
         return currency;
@@ -106,7 +106,6 @@ public class SwingMoneyCalculatorDialog extends JFrame implements MoneyCalculato
         pane.add(new Label("Result: "));
         resultArea = new JTextArea();
         pane.add(resultArea);
-        resultArea.setText("LOOOOOOOOOOOOOOOOOOOOOL");
         panel.add(pane, 0);
         panel.add(createButtonPanel(), 1);
         return panel;

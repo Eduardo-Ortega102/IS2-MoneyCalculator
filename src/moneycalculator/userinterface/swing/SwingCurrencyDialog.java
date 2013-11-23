@@ -13,7 +13,10 @@ public class SwingCurrencyDialog extends JComboBox {
     private static SwingCurrencyDialog instance2;
 
     private SwingCurrencyDialog() {
-        super(CurrencySet.getInstance().toArray(new Currency[0]));
+        this.addItem(null);
+        for (Currency item : CurrencySet.getInstance()) {
+            this.addItem(item);
+        }
         this.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
