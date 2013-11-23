@@ -1,6 +1,5 @@
 package moneycalculator.model;
 
-import java.util.Objects;
 
 public class Currency {
     private String code;
