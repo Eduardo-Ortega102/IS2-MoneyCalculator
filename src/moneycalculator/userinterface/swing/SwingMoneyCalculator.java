@@ -1,4 +1,4 @@
-package moneycalculator.userinterface;
+package moneycalculator.userinterface.swing;
 
 import java.awt.*;
 import javax.swing.*;
@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import moneycalculator.model.Currency;
 import moneycalculator.model.Money;
+import moneycalculator.userinterface.DialogInterface;
 import moneycalculator.userinterface.swing.SwingCurrencyDialog;
 import moneycalculator.userinterface.swing.SwingAmountMoneyDialog;
 

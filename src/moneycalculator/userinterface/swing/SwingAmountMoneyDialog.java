@@ -1,11 +1,11 @@
 package moneycalculator.userinterface.swing;
 
 import javax.swing.JTextField;
-import moneycalculator.model.Number;
+import moneycalculator.model.MoneyAmount;
 
 public class SwingAmountMoneyDialog extends JTextField {
 
-    private Number amount;
+    private MoneyAmount amount;
     private static SwingAmountMoneyDialog instance;
 
     private SwingAmountMoneyDialog() {
@@ -21,12 +21,12 @@ public class SwingAmountMoneyDialog extends JTextField {
 
     public void inicializeMoney() {
         try {
-            amount = Number.valueOf(this.getText());
+            amount = MoneyAmount.valueOf(this.getText());
         } catch (NumberFormatException ex) {
         }
     }
 
-    public Number getAmount() {
+    public MoneyAmount getAmount() {
         return amount;
     }
 }

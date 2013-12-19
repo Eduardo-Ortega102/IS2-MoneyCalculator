@@ -1,8 +1,9 @@
-package moneycalculator.userinterface;
+package moneycalculator.userinterface.console;
 
 import java.io.BufferedReader;
 import moneycalculator.model.Currency;
 import moneycalculator.model.Money;
+import moneycalculator.userinterface.DialogInterface;
 import moneycalculator.userinterface.console.ConsoleCurrencyDialog;
 import moneycalculator.userinterface.console.ConsoleMoneyDialog;
 
