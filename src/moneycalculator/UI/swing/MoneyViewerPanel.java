@@ -34,9 +34,9 @@ public class MoneyViewerPanel extends JPanel implements MoneyViewer {
 
     @Override
     public void showMoney(MoneyAmount sourceAmount, Currency fromCurrency, Money newMoney) {
-        fromCurrencyLabel.setText(sourceAmount.toString() + fromCurrency + " son ");
+        fromCurrencyLabel.setText(sourceAmount.toString() + " " + fromCurrency + " son ");
         area.setText(newMoney.getAmount().toString());
-        fromCurrencyLabel.setText(newMoney.getCurrency().toString());
+        toCurrencyLabel.setText(newMoney.getCurrency().toString());
     }
 
 

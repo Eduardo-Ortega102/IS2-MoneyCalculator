@@ -33,18 +33,18 @@ public class Application {
         this.createCommands(frame, exchangeRate);
         
         MoneyCalculatorControl moneyControl = new MoneyCalculatorControl(frame, exchangeRate);
-        while (true) {
+//        while (true) {
             moneyControl.execute();
-        }
+//        }
     }
 
-    private void createCommands(ApplicationFrame frame, ExchangeRateLoader exchangeRate) {
+    private void createCommands(ApplicationFrame frame, ExchangeRateLoader exchangeRateLoader) {
         commandMap= new HashMap<>();
         commandMap.put("calculate", new CalculateCommand(
                 frame.getMoneyDialog(), 
                 frame.getCurrencyDialog(),
                 frame.getMoneyViewer(),
-                exchangeRate)
+                exchangeRateLoader)
         );
         
         commandMap.put("exit", new Command() {
