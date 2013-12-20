@@ -9,11 +9,12 @@ import moneycalculator.UI.swing.ActionListenerFactory;
 import moneycalculator.UI.swing.SwingApplicationFrame;
 import moneycalculator.control.CalculateCommand;
 import moneycalculator.control.Command;
-import moneycalculator.control.ExchangeMoneyControl;
+import moneycalculator.control.MoneyCalculatorControl;
 import moneycalculator.model.Currency;
 import moneycalculator.model.CurrencySet;
 import moneycalculator.model.MoneyAmount;
 import moneycalculator.persistence.CurrencySetLoader;
+import moneycalculator.persistence.DataBaseExchangeRateLoader;
 import moneycalculator.persistence.ExchangeRateLoader;
 
 public class Application {
@@ -28,21 +29,22 @@ public class Application {
         CurrencySetLoader currencySetLoader = createCurrencySetLoader();
         currencySetLoader.load();
         ApplicationFrame frame = createApplicationFrame();
-        this.createCommands(frame);
         ExchangeRateLoader exchangeRate = createExchangeRateLoader();
+        this.createCommands(frame, exchangeRate);
         
-        ExchangeMoneyControl moneyControl = new ExchangeMoneyControl(frame, exchangeRate);
+        MoneyCalculatorControl moneyControl = new MoneyCalculatorControl(frame, exchangeRate);
         while (true) {
             moneyControl.execute();
         }
     }
 
-    private void createCommands(ApplicationFrame frame) {
+    private void createCommands(ApplicationFrame frame, ExchangeRateLoader exchangeRate) {
         commandMap= new HashMap<>();
         commandMap.put("calculate", new CalculateCommand(
                 frame.getMoneyDialog(), 
                 frame.getCurrencyDialog(),
-                frame.getMoneyViewer())
+                frame.getMoneyViewer(),
+                exchangeRate)
         );
         
         commandMap.put("exit", new Command() {
@@ -54,8 +56,8 @@ public class Application {
         });
     }
     
-    private ExchangeRateLoader createExchangeRateLoader() {
-        return new ExchangeRateLoader();
+    private DataBaseExchangeRateLoader createExchangeRateLoader() {
+        return new DataBaseExchangeRateLoader();
     }
 
 //    private static DialogInterface createDialog() {

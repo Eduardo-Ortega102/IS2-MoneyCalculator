@@ -5,14 +5,14 @@ import moneycalculator.model.Currency;
 import moneycalculator.model.Money;
 import moneycalculator.persistence.ExchangeRateLoader;
 
-public class ExchangeMoneyControl {
+public class MoneyCalculatorControl {
 
     private Currency toCurrency;
     private Money money;
     private ApplicationFrame frame;
     private ExchangeRateLoader loader;
 
-    public ExchangeMoneyControl(ApplicationFrame frame, ExchangeRateLoader loader) {
+    public MoneyCalculatorControl(ApplicationFrame frame, ExchangeRateLoader loader) {
         this.frame = frame;
         this.loader = loader;
     }

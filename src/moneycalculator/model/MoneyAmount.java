@@ -90,9 +90,20 @@ public class MoneyAmount {
         return multiplicate(new MoneyAmount(exchangeRate));
     }
     
-    public MoneyAmount multiplicate(MoneyAmount number) {
-        this.numerator *= number.numerator;
-        this.denominator *= number.denominator;
+    public MoneyAmount multiplicate(MoneyAmount exchangeRate) {
+        this.numerator *= exchangeRate.numerator;
+        this.denominator *= exchangeRate.denominator;
+        reduce();
+        return new MoneyAmount(this.numerator, this.denominator);
+    }
+    
+    public MoneyAmount divide(double exchangeRate) {
+        return divide(new MoneyAmount(exchangeRate));
+    }
+    
+    public MoneyAmount divide(MoneyAmount exchangeRate) {
+        this.numerator *= exchangeRate.denominator;
+        this.denominator *= exchangeRate.numerator;
         reduce();
         return new MoneyAmount(this.numerator, this.denominator);
     }
