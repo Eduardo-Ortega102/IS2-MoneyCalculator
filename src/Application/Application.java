@@ -58,8 +58,8 @@ public class Application {
     }
 
     private ApplicationFrame createApplicationFrame() {
-//        return new SwingApplicationFrame(createSwingActionFactory());
-        return new ConsoleApplicationFrame(createConsoleActionFactory());
+        return new SwingApplicationFrame(createSwingActionFactory());
+//        return new ConsoleApplicationFrame(createConsoleActionFactory());
     }
 
     private ActionFactory createSwingActionFactory() {
