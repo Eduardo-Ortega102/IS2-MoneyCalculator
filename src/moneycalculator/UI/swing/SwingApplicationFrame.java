@@ -1,6 +1,8 @@
 package moneycalculator.UI.swing;
 
+import moneycalculator.UI.ActionFactory;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import moneycalculator.UI.ApplicationFrame;
 import moneycalculator.UI.CurrencyDialog;
@@ -12,9 +14,9 @@ public class SwingApplicationFrame extends JFrame implements ApplicationFrame {
     private MoneyDialog moneyDialog;
     private CurrencyDialog currencyDialog;
     private MoneyViewer moneyViewer;
-    private ActionListenerFactory factory;
+    private ActionFactory factory;
 
-    public SwingApplicationFrame(ActionListenerFactory factory) throws HeadlessException {
+    public SwingApplicationFrame(ActionFactory factory) throws HeadlessException {
         super("Money Calculator");
         this.factory = factory;
         this.setSize(500, 200);
@@ -75,7 +77,7 @@ public class SwingApplicationFrame extends JFrame implements ApplicationFrame {
 
     private JButton createButton(String action) {
         JButton button = new JButton(action);
-        button.addActionListener(factory.createActionListener(action));
+        button.addActionListener((ActionListener) factory.createAction(action));
         return button;
     }
 

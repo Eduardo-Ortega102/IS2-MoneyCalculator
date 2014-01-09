@@ -44,18 +44,14 @@ public class CurrencySet implements Iterable<Currency> {
                 if (list.length == 1) {
                     return list[0];
                 } else {
-                    System.out.println("Divisas disponibles: ");
-                    for (int i = 0; i < list.length; i++) {
-                        System.out.println("--------------------" + list[i]);
-                    }
-                    throw new MultipleCurrencyException();
+                    throw new MultipleCurrencyException(currency.getName().toLowerCase());
                 }
             }
         }
         throw new CurrencyNotFoundException("Error: Currency not found");
     }
 
-    private Currency[] currencyList(String string) {
+    public Currency[] currencyList(String string) {
         ArrayList<Currency> list = new ArrayList<>();
         for (Currency currency : set) {
             if (currency.getName().toLowerCase().contains(string.toLowerCase()))
@@ -79,6 +75,11 @@ public class CurrencySet implements Iterable<Currency> {
     public static class MultipleCurrencyException extends Exception {
 
         public MultipleCurrencyException() {
+            super();
+        }
+
+        private MultipleCurrencyException(String msg) {
+            super(msg);
         }
     }
 }

@@ -10,7 +10,9 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import moneycalculator.UI.ApplicationFrame;
-import moneycalculator.UI.swing.ActionListenerFactory;
+import moneycalculator.UI.ActionFactory;
+import moneycalculator.UI.console.Action;
+import moneycalculator.UI.console.ConsoleApplicationFrame;
 import moneycalculator.UI.swing.SwingApplicationFrame;
 import moneycalculator.control.CalculateCommand;
 import moneycalculator.control.Command;
@@ -36,41 +38,58 @@ public class Application {
         }
         ApplicationFrame frame = createApplicationFrame();
         ExchangeRateLoader exchangeRate = createExchangeRateLoader();
-        this.createCommands(frame, exchangeRate);
+        createCommands(frame, exchangeRate);
         frame.execute();
-
     }
 
-    private void createCommands(ApplicationFrame frame, ExchangeRateLoader exchangeRateLoader) {
-        commandMap = new HashMap<>();
-        commandMap.put("calculate", new CalculateCommand(
-                frame.getMoneyDialog(),
-                frame.getCurrencyDialog(),
-                frame.getMoneyViewer(),
-                exchangeRateLoader));
-
-        commandMap.put("exit", new Command() {
-            @Override
-            public void execute() {
-                System.exit(0);
-            }
-        });
+    private CurrencySetLoader createCurrencySetLoader() {
+        try {
+            String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+            String user = "system";
+            String passwd = "orcl";
+            DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
+            Connection connection = DriverManager.getConnection(url, user, passwd);
+            DataBaseCurrencySetLoader.createInstance(connection);
+            return DataBaseCurrencySetLoader.getInstance();
+        } catch (SQLException ex) {
+            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     private ApplicationFrame createApplicationFrame() {
-        return new SwingApplicationFrame(new ActionListenerFactory() {
+//        return new SwingApplicationFrame(createSwingActionFactory());
+        return new ConsoleApplicationFrame(createConsoleActionFactory());
+    }
+
+    private ActionFactory createSwingActionFactory() {
+        return new ActionFactory<ActionListener>() {
             @Override
-            public ActionListener createActionListener(final String action) {
+            public ActionListener createAction(final String action) {
                 return new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         Command command = commandMap.get(action.toLowerCase());
-                        if (command == null) return;
-                        command.execute();
+                        if (command != null) command.execute();
                     }
                 };
             }
-        });
+        };
+    }
+
+    private ActionFactory createConsoleActionFactory() {
+        return new ActionFactory<Action>() {
+            @Override
+            public Action createAction(final String action) {
+                return new Action() {
+                    @Override
+                    public void execute() {
+                        Command command = commandMap.get(action.toLowerCase());
+                        if (command != null) command.execute();
+                    }
+                };
+            }
+        };
     }
 
     private DataBaseExchangeRateLoader createExchangeRateLoader() {
@@ -88,18 +107,19 @@ public class Application {
         }
     }
 
-    private CurrencySetLoader createCurrencySetLoader() {
-        try {
-            String url = "jdbc:oracle:thin:@localhost:1521:orcl";
-            String user = "system";
-            String passwd = "orcl";
-            DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
-            Connection connection = DriverManager.getConnection(url, user, passwd);
-            DataBaseCurrencySetLoader.createInstance(connection);
-            return DataBaseCurrencySetLoader.getInstance();
-        } catch (SQLException ex) {
-            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+    private void createCommands(ApplicationFrame frame, ExchangeRateLoader exchangeRateLoader) {
+        commandMap = new HashMap<>();
+        commandMap.put("calculate", new CalculateCommand(
+                frame.getMoneyDialog(),
+                frame.getCurrencyDialog(),
+                frame.getMoneyViewer(),
+                exchangeRateLoader));
+
+        commandMap.put("exit", new Command() {
+            @Override
+            public void execute() {
+                System.exit(0);
+            }
+        });
     }
 }

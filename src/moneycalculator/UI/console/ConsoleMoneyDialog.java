@@ -1,37 +1,42 @@
-package moneycalculator.userinterface.console;
+package moneycalculator.UI.console;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import moneycalculator.UI.MoneyDialog;
 import moneycalculator.model.Currency;
 import moneycalculator.model.Money;
 import moneycalculator.model.Number;
 
-public class ConsoleMoneyDialog {
+public class ConsoleMoneyDialog implements MoneyDialog {
 
     private BufferedReader reader;
     private Money money;
+    private ConsoleCurrencyDialog currencyDialog;
 
+    @Override
     public Money getMoney() {
         return money;
     }
 
     public ConsoleMoneyDialog(BufferedReader reader) {
         this.reader = reader;
+        currencyDialog = new ConsoleCurrencyDialog(reader);
     }
 
-    public void execute(String message) {
+    public void execute() throws Exception {
         Number amount;
-        ConsoleCurrencyDialog currencyDialog = new ConsoleCurrencyDialog(reader);
         Currency currency;
+        String input = "";
         while (true) {
             try {
-                amount = Number.valueOf(readAmount(reader));
-                currencyDialog.execute(message);
+                input = readAmount(reader);
+                amount = Number.valueOf(input);
+                currencyDialog.execute("Introduzca la divisa origen: ");
                 currency = currencyDialog.getCurrency();
                 this.money = new Money(amount, currency);
                 break;
             } catch (NumberFormatException ex) {
-                System.out.println("Error: No ha introducido un número");
+                throw new Exception(input);
             } catch (IOException ex) {
                 System.out.println("An exception has been catched.");
             }
