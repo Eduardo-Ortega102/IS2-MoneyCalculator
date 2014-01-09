@@ -91,10 +91,11 @@ public class Number {
     }
     
     public Number multiplicate(Number exchangeRate) {
-        this.numerator *= exchangeRate.numerator;
-        this.denominator *= exchangeRate.denominator;
-        reduce();
-        return new Number(this.numerator, this.denominator);
+        long num = this.numerator;
+        long den = this.denominator;
+        num *= exchangeRate.numerator;
+        den *= exchangeRate.denominator;
+        return new Number(num, den);
     }
     
     public Number divide(double exchangeRate) {

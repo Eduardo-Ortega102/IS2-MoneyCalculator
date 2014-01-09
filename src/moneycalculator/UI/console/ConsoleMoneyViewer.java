@@ -13,7 +13,7 @@ public class ConsoleMoneyViewer implements MoneyViewer {
     @Override
     public void showMoney(Number sourceAmount, Currency fromCurrency, Money newMoney) {
         System.out.print(sourceAmount + " " + fromCurrency + " son ");
-        System.out.print(newMoney.getAmount());
+        System.out.print(newMoney.getAmount() + " ");
         System.out.println(newMoney.getCurrency() + "\n");
     }
 }
