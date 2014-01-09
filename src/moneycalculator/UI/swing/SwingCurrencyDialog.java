@@ -7,11 +7,11 @@ import moneycalculator.UI.CurrencyDialog;
 import moneycalculator.model.Currency;
 import moneycalculator.model.CurrencySet;
 
-public class CurrencyDialogPanel extends JPanel implements CurrencyDialog {
+public class SwingCurrencyDialog extends JPanel implements CurrencyDialog {
 
     private Currency currency;
 
-    public CurrencyDialogPanel() {
+    public SwingCurrencyDialog() {
         this.add(createComboBox());
         
     }

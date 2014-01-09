@@ -7,14 +7,14 @@ import javax.swing.*;
 import moneycalculator.UI.CurrencyDialog;
 import moneycalculator.UI.MoneyDialog;
 import moneycalculator.model.Money;
-import moneycalculator.model.MoneyAmount;
+import moneycalculator.model.Number;
 
-public class MoneyDialogPanel extends JPanel implements MoneyDialog {
+public class SwingMoneyDialog extends JPanel implements MoneyDialog {
 
     private double amount;
     private CurrencyDialog currency;
 
-    public MoneyDialogPanel() {
+    public SwingMoneyDialog() {
         super(new FlowLayout(FlowLayout.LEFT));
         this.createComponents();
     }
@@ -51,12 +51,12 @@ public class MoneyDialogPanel extends JPanel implements MoneyDialog {
     }
 
     private CurrencyDialog createCurrencyDialog() {
-        CurrencyDialog currencyDialog = new CurrencyDialogPanel();
+        CurrencyDialog currencyDialog = new SwingCurrencyDialog();
         return currencyDialog;
     }
 
     @Override
     public Money getMoney() {
-        return new Money(new MoneyAmount(amount), this.currency.getCurrency());
+        return new Money(new Number(amount), this.currency.getCurrency());
     }
 }

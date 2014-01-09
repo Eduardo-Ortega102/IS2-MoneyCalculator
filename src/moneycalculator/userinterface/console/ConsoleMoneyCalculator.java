@@ -3,11 +3,8 @@ package moneycalculator.userinterface.console;
 import java.io.BufferedReader;
 import moneycalculator.model.Currency;
 import moneycalculator.model.Money;
-import moneycalculator.userinterface.DialogInterface;
-import moneycalculator.userinterface.console.ConsoleCurrencyDialog;
-import moneycalculator.userinterface.console.ConsoleMoneyDialog;
 
-public class ConsoleMoneyCalculator implements DialogInterface {
+public class ConsoleMoneyCalculator  {
 
     private BufferedReader reader;
     private Currency currency;
@@ -17,17 +14,14 @@ public class ConsoleMoneyCalculator implements DialogInterface {
         this.reader = reader;
     }
 
-    @Override
     public Currency getCurrency() {
         return currency;
     }
 
-    @Override
     public Money getMoney() {
         return money;
     }
 
-    @Override
     public void execute() {
         ConsoleMoneyDialog moneyDialog = new ConsoleMoneyDialog(reader);
         moneyDialog.execute("Introduzca la divisa inicial: ");
@@ -37,7 +31,6 @@ public class ConsoleMoneyCalculator implements DialogInterface {
         this.currency = currencyDialog.getCurrency();
     }
 
-    @Override
     public void viewResult(Money moneyResult) {
         System.out.println(money.toString() + " son " + moneyResult.toString());
     }

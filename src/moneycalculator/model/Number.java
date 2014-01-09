@@ -1,37 +1,37 @@
 package moneycalculator.model;
 
-public class MoneyAmount {
+public class Number {
     private long numerator;
     private long denominator;
 
-    public MoneyAmount (long numerator, long denominator) {
+    public Number (long numerator, long denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
         reduce();
     }
 
 
-    public MoneyAmount (long number) {
+    public Number (long number) {
         numerator = number;
         denominator = 1;
     }
     
-    public MoneyAmount (MoneyAmount number){
+    public Number (Number number){
         this.numerator = number.numerator; 
         this.denominator = number.denominator; 
     }
     
-    public MoneyAmount (double number){
+    public Number (double number){
         this(numberFromDouble(number));
     }
 
-    public static MoneyAmount numberFromDouble (double number) {
+    public static Number numberFromDouble (double number) {
         long denominatorContainer = 1;
         while(number != (long) number){
             number *= 10;
             denominatorContainer *= 10;
         }
-        return new MoneyAmount((long) number, denominatorContainer);
+        return new Number((long) number, denominatorContainer);
     }
 
     private int[] getPrimeNumbers(){
@@ -62,8 +62,8 @@ public class MoneyAmount {
         return denominator;
     }
     
-    public static MoneyAmount valueOf (String value) throws NumberFormatException{
-        return new MoneyAmount (Double.valueOf(value));
+    public static Number valueOf (String value) throws NumberFormatException{
+        return new Number (Double.valueOf(value));
     }
     
     @Override
@@ -79,33 +79,33 @@ public class MoneyAmount {
         if (obj == null || getClass() != obj.getClass())
             return false;
         
-        final MoneyAmount other = (MoneyAmount) obj;
+        final Number other = (Number) obj;
         
         if (this.numerator != other.numerator) return false;
         if (this.denominator != other.denominator) return false;
         return true;
     }
 
-    public MoneyAmount multiplicate(double exchangeRate) {
-        return multiplicate(new MoneyAmount(exchangeRate));
+    public Number multiplicate(double exchangeRate) {
+        return multiplicate(new Number(exchangeRate));
     }
     
-    public MoneyAmount multiplicate(MoneyAmount exchangeRate) {
+    public Number multiplicate(Number exchangeRate) {
         this.numerator *= exchangeRate.numerator;
         this.denominator *= exchangeRate.denominator;
         reduce();
-        return new MoneyAmount(this.numerator, this.denominator);
+        return new Number(this.numerator, this.denominator);
     }
     
-    public MoneyAmount divide(double exchangeRate) {
-        return divide(new MoneyAmount(exchangeRate));
+    public Number divide(double exchangeRate) {
+        return divide(new Number(exchangeRate));
     }
     
-    public MoneyAmount divide(MoneyAmount exchangeRate) {
+    public Number divide(Number exchangeRate) {
         this.numerator *= exchangeRate.denominator;
         this.denominator *= exchangeRate.numerator;
         reduce();
-        return new MoneyAmount(this.numerator, this.denominator);
+        return new Number(this.numerator, this.denominator);
     }
     
     

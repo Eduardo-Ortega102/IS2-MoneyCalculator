@@ -17,7 +17,7 @@ public class SwingApplicationFrame extends JFrame implements ApplicationFrame {
     public SwingApplicationFrame(ActionListenerFactory factory) throws HeadlessException {
         super("Money Calculator");
         this.factory = factory;
-        this.setSize(600, 500);
+        this.setSize(500, 200);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.createComponents();
@@ -29,9 +29,21 @@ public class SwingApplicationFrame extends JFrame implements ApplicationFrame {
     }
 
     private JPanel createMainPanel() {
+        JPanel panel = new JPanel(new GridLayout(2, 1));
+        panel.add(createInputDialog());
+        panel.add(createOutputDialog());
+        return panel;
+    }
+
+    private JPanel createInputDialog() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panel.add(createMoneyDialog());
         panel.add(createCurrencyDialog());
+        return panel;
+    }
+
+    private JPanel createOutputDialog() {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panel.add(createMoneyViewer());
         return panel;
     }
@@ -43,20 +55,20 @@ public class SwingApplicationFrame extends JFrame implements ApplicationFrame {
         return panel;
     }
 
-    private MoneyDialogPanel createMoneyDialog() {
-        MoneyDialogPanel panel = new MoneyDialogPanel();
+    private SwingMoneyDialog createMoneyDialog() {
+        SwingMoneyDialog panel = new SwingMoneyDialog();
         this.moneyDialog = panel;
         return panel;
     }
 
-    private CurrencyDialogPanel createCurrencyDialog() {
-        CurrencyDialogPanel panel = new CurrencyDialogPanel();
+    private SwingCurrencyDialog createCurrencyDialog() {
+        SwingCurrencyDialog panel = new SwingCurrencyDialog();
         this.currencyDialog = panel;
         return panel;
     }
 
-    private MoneyViewerPanel createMoneyViewer() {
-        MoneyViewerPanel panel = new MoneyViewerPanel();
+    private SwingMoneyViewer createMoneyViewer() {
+        SwingMoneyViewer panel = new SwingMoneyViewer();
         this.moneyViewer = panel;
         return panel;
     }

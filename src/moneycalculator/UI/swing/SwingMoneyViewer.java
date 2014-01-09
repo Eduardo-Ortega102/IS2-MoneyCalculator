@@ -5,22 +5,22 @@ import javax.swing.*;
 import moneycalculator.UI.MoneyViewer;
 import moneycalculator.model.Currency;
 import moneycalculator.model.Money;
-import moneycalculator.model.MoneyAmount;
+import moneycalculator.model.Number;
 
-public class MoneyViewerPanel extends JPanel implements MoneyViewer {
+public class SwingMoneyViewer extends JPanel implements MoneyViewer {
 
-    private JTextField area;
+    private JLabel area;
     private JLabel fromCurrencyLabel;
     private JLabel toCurrencyLabel;
 
-    public MoneyViewerPanel() {
+    public SwingMoneyViewer() {
         super(new FlowLayout(FlowLayout.LEFT));
         this.createComponents();
         this.setVisible(true);
     }
 
     private void createComponents() {
-        area = createResultField();
+        area = new JLabel("");
         fromCurrencyLabel = new JLabel("");
         toCurrencyLabel = new JLabel("");
         this.add(fromCurrencyLabel);
@@ -28,12 +28,8 @@ public class MoneyViewerPanel extends JPanel implements MoneyViewer {
         this.add(toCurrencyLabel);
     }
 
-    private JTextField createResultField() {
-        return new JTextField(10);
-    }
-
     @Override
-    public void showMoney(MoneyAmount sourceAmount, Currency fromCurrency, Money newMoney) {
+    public void showMoney(Number sourceAmount, Currency fromCurrency, Money newMoney) {
         fromCurrencyLabel.setText(sourceAmount.toString() + " " + fromCurrency + " son ");
         area.setText(newMoney.getAmount().toString());
         toCurrencyLabel.setText(newMoney.getCurrency().toString());

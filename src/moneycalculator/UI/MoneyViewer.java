@@ -2,10 +2,10 @@ package moneycalculator.UI;
 
 import moneycalculator.model.Currency;
 import moneycalculator.model.Money;
-import moneycalculator.model.MoneyAmount;
+import moneycalculator.model.Number;
 
 public interface MoneyViewer {
     
-    public void showMoney(MoneyAmount amount, Currency fromCurrency, Money money);
+    public void showMoney(Number amount, Currency fromCurrency, Money money);
 
 }

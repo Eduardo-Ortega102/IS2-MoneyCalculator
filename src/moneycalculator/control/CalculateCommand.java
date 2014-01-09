@@ -5,7 +5,7 @@ import moneycalculator.UI.MoneyDialog;
 import moneycalculator.UI.MoneyViewer;
 import moneycalculator.model.Currency;
 import moneycalculator.model.Money;
-import moneycalculator.model.MoneyAmount;
+import moneycalculator.model.Number;
 import moneycalculator.persistence.ExchangeRateLoader;
 
 public class CalculateCommand extends Command {
@@ -28,7 +28,7 @@ public class CalculateCommand extends Command {
         viewer.showMoney(getSourceAmount(), getFromCurrency(), getMoney());
     }
 
-    private MoneyAmount getSourceAmount() {
+    private Number getSourceAmount() {
         return moneyDialog.getMoney().getAmount();
     }
 
@@ -40,11 +40,11 @@ public class CalculateCommand extends Command {
         return new Money(getNewAmount(), getToCurrency());
     }
 
-    private MoneyAmount getNewAmount() {
-        return new MoneyAmount(getSourceAmount().multiplicate(getExchangeRate()));
+    private Number getNewAmount() {
+        return new Number(getSourceAmount().multiplicate(getExchangeRate()));
     }
 
-    private MoneyAmount getExchangeRate() {
+    private Number getExchangeRate() {
         return loader.load(getFromCurrency(), getToCurrency()).getRate();
     }
 

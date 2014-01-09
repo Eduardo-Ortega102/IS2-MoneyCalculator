@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import moneycalculator.model.Currency;
 import moneycalculator.model.Money;
-import moneycalculator.model.MoneyAmount;
+import moneycalculator.model.Number;
 
 public class ConsoleMoneyDialog {
 
@@ -20,12 +20,12 @@ public class ConsoleMoneyDialog {
     }
 
     public void execute(String message) {
-        MoneyAmount amount;
+        Number amount;
         ConsoleCurrencyDialog currencyDialog = new ConsoleCurrencyDialog(reader);
         Currency currency;
         while (true) {
             try {
-                amount = MoneyAmount.valueOf(readAmount(reader));
+                amount = Number.valueOf(readAmount(reader));
                 currencyDialog.execute(message);
                 currency = currencyDialog.getCurrency();
                 this.money = new Money(amount, currency);
